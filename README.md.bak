@@ -1,4 +1,4 @@
-# User Details - Sample Java Spring Boot Project with Spring Security
+# User Details - Sample Java Spring Boot Project
 This is a sample Java / Maven / Spring Boot REST application that can be used for registering user, user login(Authentication and Authorization), uploading, viewing and deleting images
 
 ## Project is built using Java v8.x Sprint boot v2.6.x

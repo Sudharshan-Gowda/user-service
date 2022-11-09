@@ -20,5 +20,6 @@ public class UserImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userImageId;
+	private String imgurId;
 	private String imageUrl;
 }

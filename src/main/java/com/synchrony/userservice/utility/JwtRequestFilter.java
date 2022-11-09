@@ -41,15 +41,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 				Algorithm algorithm = Algorithm.HMAC256(secret.getBytes());
 				JWTVerifier verifier = JWT.require(algorithm).build();
 				DecodedJWT decodedJWT = verifier.verify(token);
+				String asString = decodedJWT.getClaim("roles").asString();
 				String username = decodedJWT.getSubject();
-				List<String> asList = decodedJWT.getClaim("roles").asList(String.class);
 				List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-				asList.forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
+				authorities.add(new SimpleGrantedAuthority(asString));
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 						username, null, authorities);
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 				filterChain.doFilter(request, response);
 			} catch (Exception e) {
+				e.printStackTrace();
 				Map<String, String> map = new HashMap<>();
 				map.put("error_message", e.getMessage());
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
