@@ -55,6 +55,7 @@ public class UserDetailsController {
 		return new ResponseEntity<>(userDetailsService.createAuthenticationToken(dto), HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAuthority('USER')")
 	@PostMapping("/user/image")
 	public ResponseEntity<SuccessResponse> addUserImages(@RequestParam("files") List<MultipartFile> files,
 			@RequestParam("userId") long userId) throws IOException {
@@ -73,6 +74,7 @@ public class UserDetailsController {
 				new SuccessResponse(false, GET_USER_SUCCESS, userDetailsService.getUserInfo(userId)), HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAuthority('USER')")
 	@GetMapping("/user/image")
 	public ResponseEntity<SuccessResponse> getUserImage(@RequestParam("id") String id)
 			throws IOException, InterruptedException {
